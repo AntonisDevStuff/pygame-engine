@@ -17,7 +17,7 @@ def build(*args, **kwargs):
         docformat="google"
     )
     # This will always give you the correct absolute path to a build folder inside the current working directory
-    output_path = Path(os.getcwd()) / "build"
+    output_path = Path(os.getcwd()) / "docs"
     output_path.mkdir(parents=True, exist_ok=True)
     pdoc.pdoc("pyxora", "!pyxora.examples","!pyxora.docs","!pyxora.project","!pyxora.templates", output_directory=output_path)
     x2 = time()

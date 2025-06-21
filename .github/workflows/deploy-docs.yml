@@ -14,26 +14,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python 3.11
+      - name: Set up Python 3.13
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.13"
 
       - name: Install dependencies
         run: |
           pip install -e .
-          pip install -r docs/requirements.txt
 
       - name: Build documentation
         run: |
-          PYTHONPATH=. python -m docs -b
+          PYTHONPATH=. python -m pyxora docs build
           mkdir -p deploy/docs
-          cp -r build/* deploy/docs/
+          cp -r docs/* deploy/docs/
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to Website Repo
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          external_repository: pyxora/website           
+          personal_token: ${{ secrets.WEB_TOKEN }}    
           publish_dir: ./deploy
-          publish_branch: gh-pages
+          publish_branch: main
           keep_files: true

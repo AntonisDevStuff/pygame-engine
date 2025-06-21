@@ -1,119 +1,68 @@
-# pyxora
+# ⚙️ pyxora
+pyxora is a lightweight, open-source 2D game engine built on pygame-ce and pymunk.  
+It’s designed to keep game development simple and flexible.
 
-*A simple game engine made with Python and pygame-ce*
+Perfect for prototypes, game jams, and learning projects.  
+Handles rendering, physics, scenes and more so you can focus on making your game.
 
-**pyxora** is a lightweight abstraction over libraries like [pygame-ce](https://github.com/pygame-community/pygame-ce) and others. It's designed to serve as a simple, open-source game engine for building 2D games.
+If it looks interesting to you, feel free to give it a try!
 
-> **Note:** The project is still in early development. It is not recommended for complex project/games at this stage.
----
+## Quick Start
 
-## Getting Started
-
-### 📥 Installation
-
-There is no official build or package on PyPI yet. To use **pyxora**, you must install it from the source.
-
-1. Install Python 3.11+
-2. Download the source files from the [Releases](https://github.com/ToniDevStuff/pyxora/releases) page  
-3. Open your terminal at the source directory  
-4. Run:
-
-    ```bash
-    python -m pip install -e .
-    ```
-
-### 🎮 New Project
-
-There is no project manager yet.  
-To create a new project using **pyxora**, it is recommended to check the syntax and structure used in the example files.
-
-### 📚 Documentation
-
-The documentation is built using [pdoc](https://github.com/mitmproxy/pdoc).  
-It provides an overview of the engine modules and how they work.
-
-It is recommended to read the documentation at least once to understand the engine’s structure and usage.\
-📄 [View Documentation](https://tonidevstuff.github.io/pyxora/docs/pyxora.html)
-
-### 🧪 Examples
-
-Check the [examples](pyxora/examples) folder for some examples with a syntax showcase.
-Currently, only a basic test example is included:
+### Installation
+To install, use pip:
+```bash
+pip install pyxora
+```
+### Create a New Project
+To create a new project, you can use the built-in project CLI:
 
 ```bash
-python -m pyxora.examples.test
+pyxora new project_name
+```
+**Note:** It's recommended to include additional metadata by using extra command-line arguments
+### Run the project
+To run the project you just created:
+```bash
+pyxora run project_name
 ```
 
----
+## Command-line interface
+As you just can see, the library heavily relies on the built-in CLI to help you manage your projects easily.
 
-## ❓ FAQ
+To see all available CLI commands:
 
-### 🧐 Who Is It For?
+```bash
+pyxora --help
+```
 
-**pyxora** is ideal for small-scale projects that don’t require heavy processing.  
-Perfect for:
+## Documentation
+The documentation is built using pdoc, a docstring generator.  
+It provides an overview of the engine API and how it works.
 
-- Learning and experimentation
-- Prototyping
-- Game jams
-- Any small 2D game
+It is recommended to read the documentation at least once to understand the engine’s structure and usage.
 
-### ❓ Why Python?
+Documentation: [here](https://pyxora.github.io/website/docs)
 
-Because it's fun and easy to learn/use.
+## Examples
+Examples are great for understanding how the engine works and getting familiar with its syntax.
 
-### 👨‍💻 Should I Use It?
+List examples and run one with:
+```python
+pyxora examples list
+pyxora examples run example
+```
 
-If you find **pyxora** interesting or useful in any way, feel free to use it!  
-It's open-source and designed to be easy to explore and experiment with.
-
-### 🚧 Cross-Platform
-
-The engine is available for use on **Windows** and **Linux**, with build support (not yet) for these platforms and **Web**.\
-In the future, there may be support for **Android** and **Mac**.
-
-### 📦 Will It Be On PyPI?
-
-It will be available when it becomes more usable.  
-Currently, the only way to use **pyxora** is by installing it from the source.
-
-### 🖥️ Will It Have a GUI?
-
-It’s planned, but not available yet. (The main focus is building the core engine.)  
-The engine is designed to focus on writing code rather than using a GUI.
-
-The GUI will serve more as visual assistance.
-
-### 🙋‍♂️ Can I Contribute?
-
-Absolutely! Contributions are welcome.  
+## Can I Contribute?
+Absolutely! Contributions are always welcome.
 You can:
 
-- Suggest improvements
-- Report bugs
 - Submit pull requests
+- Open issues
+- Suggest improvements
 - Fix typos or write examples
 
-**pyxora** started as a personal project for my own games.  
-And afterwards, i decide to make it open-source.
+## License
 
-All changes are managed by the original author.  
-Need something different? Feel free to **fork** the project and make it your own.
-
-If you have any questions or need something more specific, you can contact the author.
-
----
-
-## ✅ TODO
-
-- Refactor all local drafts
-- Add more basic features
-- Improve engine structure
-- Create Icon
-- Publish to PyPI
-- more...
-
-## 📝 License
-
-This project is licensed under the **MIT License**.  
-See the [LICENSE.txt](LICENSE.txt) file for full license text.
+This project is licensed under the MIT License.  
+See the [LICENSE](LICENSE.txt) file for the full license text.
