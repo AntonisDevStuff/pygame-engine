@@ -1,4 +1,4 @@
-from pyxora import debug
+from pyxora import debug,version,pygame_version,sdl_version,python_version
 
 from traceback import extract_tb
 import os
@@ -6,7 +6,17 @@ import sys
 
 import pygame
 
-__all__ = ["error","warning","quit"]
+__all__ = ["print_versions","error","warning","quit"]
+
+def print_versions() -> None:
+    """Print the versions for the engine library and its dependencies."""
+    print("-"*50)
+    print("pyxora:", version)
+    print("Dependencies: ")
+    print("\tRendering: pygame-ce", pygame_version, "| SDL", sdl_version)
+    # print("\tPhysics: pymunk", pymunk_version)
+    print("Python:", python_version)
+    print("-"*50)
 
 def error(err: Exception) -> None:
     """
