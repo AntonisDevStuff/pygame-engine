@@ -32,6 +32,7 @@ class SceneManager:
         """
         Start the main game loop.
         """
+        engine.print_versions()
         while True:
             scene = cls.scene
             if not scene:
