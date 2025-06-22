@@ -1,4 +1,11 @@
 # ⚙️ pyxora
+[![PyPI - Version](https://img.shields.io/pypi/v/pyxora)](https://pypi.org/project/pyxora/)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://pyxora.github.io/website/docs)
+![CLI](https://img.shields.io/badge/CLI-available-red)
+![License](https://img.shields.io/github/license/pyxora/pyxora)
+![PyPI - Status](https://img.shields.io/pypi/status/pyxora)
+
+
 pyxora is a lightweight, open-source 2D game engine built on pygame-ce and pymunk.  
 It’s designed to keep game development simple and flexible.
 
