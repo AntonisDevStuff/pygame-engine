@@ -1,6 +1,6 @@
 from pyxora import version
 from .docs import local, online, build_docs
-from .project import new, run, open, rename, delete, format, info, ls, build_project
+from .projects import new, run, open, rename, delete, format, info, ls, build_project
 
 # fix namespace problems
 from .examples import run as examples_run
