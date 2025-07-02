@@ -1,8 +1,9 @@
 from .utils import engine,python
 
 from dataclasses import dataclass, field
-from typing import Any,Optional
+from typing import Any
 import os
+import inspect
 
 import pygame
 
@@ -68,8 +69,9 @@ class Assets:
         cls._load_engine_files()
         cls.load("engine")  # always load the engine data
         cls.engine.fonts.update(cls.__get_default_font())  # add default font to engine
-
+        path_caller = cls.__get_caller_path()
         cls._load_data_files(
+            path_caller,
             path_images,path_fonts,
             path_scenes,path_scripts,
             path_music,path_sfx
@@ -132,12 +134,13 @@ class Assets:
                 asset_store[name] = loader(path)
 
     @classmethod
-    def _load_data_files(cls, path_images: str,path_fonts: str, path_scenes: str,path_scripts: str, path_music: str,path_sfx: str) -> None:
+    def _load_data_files(cls, path_caller: str, path_images: str,path_fonts: str, path_scenes: str,path_scripts: str, path_music: str,path_sfx: str) -> None:
         """
         This method scans each provided directory path and organizes the discovered files
         into a structured dictionary (e.g., `Data.files`).
 
         Args:
+            path_caller (str): Path to the caller's directory.
             path_images (str): Path to image files.
             path_fonts (str): Path to font files.
             path_scenes (str): Path to scene files.
@@ -148,22 +151,22 @@ class Assets:
 
         paths = {}
         if path_images is not None:
-            paths["images"] = cls.__get_full_path(path_images)
+            paths["images"] = cls.__get_full_path(path_caller,path_images)
 
         if path_fonts is not None:
-            paths["fonts"] = cls.__get_full_path(path_fonts)
+            paths["fonts"] = cls.__get_full_path(path_caller,path_fonts)
 
         if path_music is not None:
-            paths["music"] = cls.__get_full_path(path_music)
+            paths["music"] = cls.__get_full_path(path_caller,path_music)
 
         if path_sfx is not None:
-            paths["sfx"] = cls.__get_full_path(path_sfx)
+            paths["sfx"] = cls.__get_full_path(path_caller,path_sfx)
 
         if path_scenes is not None:
-            paths["scenes"] = cls.__get_full_path(path_scenes)
+            paths["scenes"] = cls.__get_full_path(path_caller,path_scenes)
 
         if path_scripts is not None:
-            paths["scripts"] = cls.__get_full_path(path_scripts)
+            paths["scripts"] = cls.__get_full_path(path_caller,path_scripts)
 
         cls.data.files = cls.__get_all_files(paths)
 
@@ -241,11 +244,12 @@ class Assets:
         return data
 
     @staticmethod
-    def __get_full_path(path):
+    def __get_full_path(path_caller: str,path: str) -> str:
         """
         Convert a relative path to an absolute normalized path and verify it exists.
 
         Args:
+            path_caller (str): The root path of the project.
             path (str): The relative or partial path to validate.
 
         Returns:
@@ -254,8 +258,23 @@ class Assets:
         Raises:
             OSError: If the resolved path does not exist.
         """
-        path = os.path.normpath(os.getcwd()+path)
+        path = os.path.normpath(path_caller+path)
         if not os.path.exists(path):
             engine.error(OSError(f"The path doesn't exist: {path}"))
             engine.quit()
         return path
+
+    @staticmethod
+    def __get_caller_path() -> str:
+        """
+        Returns the directory of the script that called the init() method
+
+        Returns:
+            str: The absolute path of the directory containing the caller script.
+        """
+        try:
+            frame_info = inspect.stack()[2]
+            caller_file = frame_info.filename
+            return os.path.dirname(os.path.abspath(caller_file))
+        except Exception:
+            return os.getcwd()
