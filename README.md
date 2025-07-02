@@ -1,8 +1,8 @@
-# ⚙️ pyxora
+# ⚙️ pyxora engine
 [![PyPI - Version](https://img.shields.io/pypi/v/pyxora)](https://pypi.org/project/pyxora/)
-[![Docs](https://img.shields.io/badge/docs-online-blue)](https://pyxora.github.io/website/docs)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://pyxora.github.io/pyxora-docs/)
 ![CLI](https://img.shields.io/badge/CLI-available-red)
-![License](https://img.shields.io/github/license/pyxora/pyxora)
+![License](https://img.shields.io/github/license/pyxora/pyxora-engine)
 ![PyPI - Status](https://img.shields.io/pypi/status/pyxora)
 
 
@@ -49,7 +49,7 @@ It provides an overview of the engine API and how it works.
 
 It is recommended to read the documentation at least once to understand the engine’s structure and usage.
 
-Documentation: [here](https://pyxora.github.io/website/docs)
+Documentation: [here](https://pyxora.github.io/pyxora-docs/)
 
 ## Examples
 Examples are great for understanding how the engine works and getting familiar with its syntax.

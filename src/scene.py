@@ -193,7 +193,7 @@ class SceneEvent:
         Returns:
             SceneEvent: The event that was removed
         """
-        return self.__data.pop(event_name)
+        return self.__data.pop(name)
 
     def post(self,name: str) -> bool:
         """
@@ -250,7 +250,7 @@ class SceneEvent:
         for event_name in self.__data:
             event = self.get(event_name)
 
-            if not(self._is_state(state,event.state)):
+            if not (self._is_state(state,event.state)):
                 continue
 
             if not event.timer:
@@ -281,8 +281,7 @@ class SceneEvent:
         now = runtime if state > 0 else pausetime
         return now
 
-
-    def _update_time(self, event:"Event") -> None:
+    def _update_time(self, event:pygame.event.Event) -> None:
         """Checks if an event should be triggered based on elapsed time.
 
         If the time since the last event trigger exceeds the timer threshold,
@@ -309,9 +308,8 @@ class SceneEvent:
         event.last_time = now
         event.calls += 1
 
-
     @staticmethod
-    def _is_state(state: int, event_state: int)-> bool:
+    def _is_state(state: int, event_state: int) -> bool:
         """Checks if the event state matches the given state or is neutral (0).
 
         Args:
@@ -329,6 +327,7 @@ class Scene:
     """Represents a scene in the game."""
     _global_runtime = _global_pausetime = 0
     __global_start_time = time()
+
     def __init__(self,**kwargs: Any) -> None:
         """
         Initializes a Scene object.
@@ -488,6 +487,7 @@ class Scene:
     def _paused_update(self) -> None:
         """@public Called every paused frame to update scene logic. Override this func in your subclass."""
         pass
+
     def _paused_draw(self) -> None:
         """@public Called every paused frame to draw elements to the screen. Override this func in your subclass."""
         pass
@@ -496,24 +496,31 @@ class Scene:
     def _on_create(self) -> None:
         """@public Called once at the scene creation "manager.create()". Override this func in your subclass to add code."""
         pass
+
     def _on_quit(self) -> None:
         """@public Called once at every scene quit "manager.quit()". Override this func in your subclass to add code."""
         pass
+
     def _on_restart(self) -> None:
         """@public Called once at every scene restart "manager.restart()". Override this func in your subclass to add code."""
         pass
+
     def _on_reset(self) -> None:
         """@public Called once at the scene reset "manager.reset()". Override this func in your subclass to add code."""
         pass
+
     def _on_change(self) -> None:
         """@public Called once at the scene change "manager.change()". Override this func in your subclass to add code."""
         pass
+
     def _on_resume(self) -> None:
         """@public Called once at the scene resume "manager.resume()". Override this func in your subclass to add code."""
         pass
+
     def _on_pause(self) -> None:
         """@public Called once at the scene pause "manager.pause()". Override this func in your subclass to add code."""
         pass
+
     def _on_error(self,error: BaseException) -> None:
         """
         @public
@@ -534,6 +541,7 @@ class Scene:
             event (pygame.Event): The pygame event that occurred.
         """
         pass
+
     def _on_keydown(self,key: str) -> None:
         """
         @public
@@ -543,6 +551,7 @@ class Scene:
             key (str): The keyboard key.
         """
         pass
+
     def _on_keyup(self,key: str) -> None:
         """
         @public
@@ -552,6 +561,7 @@ class Scene:
             key (str): The keyboard key.
         """
         pass
+
     def _on_keypressed(self,key: str) -> None:
         """
         @public
@@ -561,6 +571,7 @@ class Scene:
             key (str): The keyboard key.
         """
         pass
+
     def _on_mousewheel(self,wheel: int) -> None:
         """
         @public
@@ -581,6 +592,7 @@ class Scene:
             event (pygame.Event): The pygame event that occurred.
         """
         pass
+
     def _on_paused_keydown(self,key: str) -> None:
         """
         @public
@@ -589,6 +601,7 @@ class Scene:
         Args:
             key (str): The keyboard key.
         """
+
     def _on_paused_keyup(self,key: str) -> None:
         """
         @public
@@ -598,6 +611,7 @@ class Scene:
             key (str): The keyboard key.
         """
         pass
+
     def _on_paused_keypressed(self,key: str) -> None:
         """
         @public
@@ -607,6 +621,7 @@ class Scene:
             key (str): The keyboard key.
         """
         pass
+
     def _on_paused_mousewheel(self,wheel: int) -> None:
         """
         @public
@@ -656,8 +671,8 @@ class Scene:
             )
 
             self.__event_handlers = {
-                True:  (self._on_paused_keydown, self._on_paused_keyup, self._on_paused_keypressed, self._on_paused_mousewheel, self._on_paused_event),
-                False: (self._on_keydown,        self._on_keyup,        self._on_keypressed,        self._on_mousewheel,        self._on_event)
+                True: (self._on_paused_keydown, self._on_paused_keyup, self._on_paused_keypressed, self._on_paused_mousewheel, self._on_paused_event),
+                False: (self._on_keydown, self._on_keyup, self._on_keypressed, self._on_mousewheel, self._on_event)
             }
 
             # set manual the scene kwargs to the scene
@@ -671,9 +686,9 @@ class Scene:
     def __initialize_runtime(self):
         """Sets up initial basic runtime values."""
         self._dt = self._fps = self._runtime = self._pausetime = 0
-        self._keys_pressed = set() # we manually keep track with the key_pressed every frame, set so no duplicates
-        self._events = set() # log events every frame
-        self._custom_events = set() # log custom events every frame
+        self._keys_pressed = set()  # we manually keep track with the key_pressed every frame, set so no duplicates
+        self._events = set()  # log events every frame
+        self._custom_events = set()  # log custom events every frame
 
         # Create custom Scene events
         self._event = SceneEvent(self)
@@ -727,7 +742,6 @@ class Scene:
         if self._keys_pressed:
             on_keypressed(self._keys_pressed)
 
-
     def __update(self):
         """Update the scene and timers, depending on whether it's paused or active."""
         update = self._paused_update if self.__paused else self._update
@@ -764,7 +778,7 @@ class Scene:
 
     def __render(self):
         """Renders the scene."""
-        if not self.__paused: # skip background if paused to keep the last frame render
+        if not self.__paused:  # skip background if paused to keep the last frame render
             self.__draw_background()
         (self._paused_draw if self.__paused else self._draw)()
 
@@ -779,7 +793,7 @@ class Scene:
 
     def __flip(self):
         """Updates the display with the latest frame."""
-        self.__update_fps() # I think updating the fps before the flip is the best place?
-        self._dt = round(Display.clock.tick(self._max_fps) / 1000, 3) # Also take the dt
+        self.__update_fps()  # I think updating the fps before the flip is the best place?
+        self._dt = round(Display.clock.tick(self._max_fps) / 1000, 3)  # Also take the dt
         self.__draw_display()
         pygame.display.flip()

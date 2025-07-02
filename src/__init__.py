@@ -46,7 +46,7 @@ sdl_version: str = f"{pygame.version.SDL[0]}.{pygame.version.SDL[1]}.{pygame.ver
 # pymunk_version: str = pymunk.version
 """pymunk version"""
 
-from .wrapper import *
+from .wrapper import vector, rect, Shape,Rect,Circle, Text, Image, Music, SoundEffect
 from .utils import asyncio,engine
 
 # (Not ready)

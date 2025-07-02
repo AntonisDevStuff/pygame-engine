@@ -2,7 +2,8 @@ import pygame
 
 class SoundEffect:
     _volume = 1.0
-    def __init__(self, effect:pygame.mixer.Sound, volume:float=1.0) -> None:
+
+    def __init__(self, effect:pygame.mixer.Sound, volume:float = 1.0) -> None:
         """
         Initialize a SoundEffect object
 
@@ -42,14 +43,14 @@ class SoundEffect:
     def change_volume(cls,value: float) -> None:
         """Change the volume of all music."""
         cls._volume = value
-        self._effect.set_volume(cls.volume)
+        # self._effect.set_volume(cls.volume)
 
     def change_local_volume(self,value: float) -> None:
         """Change the volume of the music."""
         self._local_volume = value
         self._effect.set_volume(self.volume)
 
-    def play(self,loops:int=-1, maxtime:int=0, fade_ms:int =0) -> None:
+    def play(self,loops:int = -1, maxtime:int = 0, fade_ms:int = 0) -> None:
         """
         Starts the sound effect.
 
@@ -63,7 +64,7 @@ class SoundEffect:
 
             fade_ms (int): Milliseconds to fade in the sound effect.
         """
-        self._effect.stop() # stop and play a new one
+        self._effect.stop()  # stop and play a new one
         self._effect.play(loops+1,maxtime,fade_ms)
 
     def stop(self) -> None:

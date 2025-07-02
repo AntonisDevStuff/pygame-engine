@@ -6,8 +6,7 @@ import pygame
 
 class Image:
     """The Image class that includes methods for drawing, moving, and scaling images on a Pygame surface."""
-    def __init__(self,image: pygame.Surface,pos: Tuple[int | float, int | float] | pygame.math.Vector2 | pygame.math.Vector3,
-        shape_type:int="rect",align: str= "topleft",custom_size=None) -> None:
+    def __init__(self,image: pygame.Surface,pos: Tuple[int | float, int | float] | pygame.math.Vector2 | pygame.math.Vector3, shape_type:int = "rect",align: str = "topleft",custom_size=None) -> None:
         """Initializes an Image object with the given position, image, shape type, and custom size.
 
         Args:

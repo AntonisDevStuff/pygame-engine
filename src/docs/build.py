@@ -6,7 +6,7 @@ import pdoc
 
 FAVICON = "https://github.com/pyxora/website/blob/main/data/favicon.png?raw=true"
 
-def build(*args, **kwargs):
+def build_docs(*args, **kwargs):
     """
     Build static HTML documentation for all modules except excluded ones.
     Output is placed in a 'build' subfolder of the current working directory.
