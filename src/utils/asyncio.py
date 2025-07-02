@@ -8,7 +8,7 @@ from typing import Awaitable,Callable
 def run(func: Callable) -> None:
     """
     Executes the provided main function asynchronously for web environments.
-    
+
     Args:
         func (func.main): The main func to be executed.
     """

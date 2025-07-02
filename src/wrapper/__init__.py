@@ -9,4 +9,4 @@ from .text import Text
 from .image import Image
 from .music import Music
 from .sfx import SoundEffect
-from .functions import *
+from .functions import vector, rect

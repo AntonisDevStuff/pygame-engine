@@ -4,7 +4,8 @@ import pygame
 class Music:
     _volume = 1.0
     _active = None
-    def __init__(self, path:str, volume:float=1.0) -> None:
+
+    def __init__(self, path:str, volume:float = 1.0) -> None:
         """
         Initialize a Music object with a path and volume.
 
@@ -51,7 +52,7 @@ class Music:
         self._local_volume = value
         pygame.mixer.music.set_volume(self.volume)
 
-    def play(self,loops:int=-1, start:float=0.0, fade_ms:int =0) -> None:
+    def play(self,loops:int = -1, start:float = 0.0, fade_ms:int = 0) -> None:
         """
         Starts the music.
 

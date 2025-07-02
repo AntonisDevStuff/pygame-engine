@@ -1,4 +1,4 @@
-from .build import build
+from .build import build_project
 from .delete import delete
 from .info import info
 from .list import ls

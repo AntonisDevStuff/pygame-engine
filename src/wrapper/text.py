@@ -25,11 +25,9 @@ class Text:
 
     surfaces: dict = OrderedDict()
     """The surfaces cache"""
-    _cache_limit = 10000 # default surface cache limit is 10000
+    _cache_limit = 10000  # default surface cache limit is 10000
 
-    def __init__(
-        self,text: str,pos: Tuple[int | float, int | float] | pygame.math.Vector2 | pygame.math.Vector3,color: str | tuple,
-        font_name: str=pygame.font.get_default_font().split(".")[0],size: int= 24,align: str= "left") -> None:
+    def __init__(self,text: str,pos: Tuple[int | float, int | float] | pygame.math.Vector2 | pygame.math.Vector3,color: str | tuple, font_name: str = pygame.font.get_default_font().split(".")[0],size: int = 24,align: str = "left") -> None:
         """
         Initialize a Text object.
 
@@ -53,10 +51,10 @@ class Text:
         self._size = size
 
         self._zoom = 1
-        self._zoom_surface = None # cache the zoom_surface for performance
+        self._zoom_surface = None  # cache the zoom_surface for performance
 
         # Initialize the surface cache
-        self._cache_surface() if(font,text) not in self.surfaces else setattr(self,"_surface",self.surfaces[(font,text)])
+        self._cache_surface() if (font,text) not in self.surfaces else setattr(self,"_surface",self.surfaces[(font,text)])
 
         # change the position of the text based on the alignment
         self._align_pos(align)
@@ -239,7 +237,6 @@ class Text:
             self._zoom_surface = pygame.transform.scale_by(self._surface, zoom)
             self._zoom = zoom
         surf.blit(self._zoom_surface, self._pos)
-
 
     def _cache_surface(self) -> None:
         """

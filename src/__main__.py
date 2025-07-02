@@ -1,9 +1,8 @@
 from pyxora import version
-from .docs import *
-from .project import *
+from .docs import local, online, build_docs
+from .project import new, run, open, rename, delete, format, info, ls, build_project
 
 # fix namespace problems
-from .docs import build as docs_build
 from .examples import run as examples_run
 from .examples import ls as examples_ls
 
@@ -61,11 +60,7 @@ def main():
     # run
     parser_run = subparsers.add_parser("run",aliases=["start","play"], help="Run a project")
     parser_run.add_argument("name", help="The name of the new project")
-    parser_run.add_argument(
-    "--web","-w",
-    action="store_true",
-    help="Use the web to run"
-    )
+    parser_run.add_argument("--web","-w", action="store_true", help="Use the web to run")
     parser_run.set_defaults(func=run)
 
     # open
@@ -101,12 +96,8 @@ def main():
     # build
     parser_build = subparsers.add_parser("build",aliases=["make","compile"], help="Build the project")
     parser_build.add_argument("name", help="The name of the project to build")
-    parser_build.add_argument(
-    "--web","-w",
-    action="store_true",
-    help="Use the web builder"
-    )
-    parser_build.set_defaults(func=build)
+    parser_build.add_argument("--web","-w", action="store_true",help="Use the web builder")
+    parser_build.set_defaults(func=build_project)
 
     # info
     parser_info = subparsers.add_parser("info", help="Show the project metadata")
@@ -129,7 +120,7 @@ def main():
 
     # docs build
     parser_docs_build = docs_subparsers.add_parser("build", help="Build the documentation")
-    parser_docs_build.set_defaults(func=docs_build)
+    parser_docs_build.set_defaults(func=build_docs)
 
     # docs online
     parser_docs_online = docs_subparsers.add_parser("online", help="Open online documentation")

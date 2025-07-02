@@ -8,7 +8,7 @@ import pygame
 
 loaders = {
     "images":lambda path:pygame.image.load(path).convert_alpha(),
-    "music": lambda path:path, # pygame.music loads only the last music file
+    "music": lambda path:path,  # pygame.music loads only the last music file
     "sfx":lambda path:pygame.mixer.Sound(path),
     "fonts": lambda path: {size: pygame.font.Font(path, size) for size in
         {1, 2, 4, 8, 10, 12, 14, 16, 18, 24, 32, 48, 64, 72, 96, 128, 144, 192, 256}},
@@ -66,8 +66,8 @@ class Assets:
             pre_load (bool): Whether to preload the assets immediately. Defaults to True.
         """
         cls._load_engine_files()
-        cls.load("engine") # always load the engine data
-        cls.engine.fonts.update(cls.__get_default_font()) # add default font to engine
+        cls.load("engine")  # always load the engine data
+        cls.engine.fonts.update(cls.__get_default_font())  # add default font to engine
 
         cls._load_data_files(
             path_images,path_fonts,
@@ -132,10 +132,7 @@ class Assets:
                 asset_store[name] = loader(path)
 
     @classmethod
-    def _load_data_files(cls,
-        path_images: str,path_fonts: str ,
-        path_scenes: str,path_scripts: str,
-        path_music: str,path_sfx: str) -> None:
+    def _load_data_files(cls, path_images: str,path_fonts: str, path_scenes: str,path_scripts: str, path_music: str,path_sfx: str) -> None:
         """
         This method scans each provided directory path and organizes the discovered files
         into a structured dictionary (e.g., `Data.files`).
@@ -148,7 +145,6 @@ class Assets:
             path_music (str): Path to music files.
             path_sfx (str): Path to sound effect files.
         """
-
 
         paths = {}
         if path_images is not None:
@@ -234,7 +230,8 @@ class Assets:
         for key,value in path.items():
             for root, dirs, files in os.walk(value,topdown=False):
                 ftype = os.path.basename(root)
-                if ftype in ignore: continue
+                if ftype in ignore:
+                    continue
                 data[key] = {}
                 for file in files:
                     full_path = os.path.join(root, file)

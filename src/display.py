@@ -15,7 +15,7 @@ class Display:
     """The main display clock"""
 
     @classmethod
-    def init(cls, title: str, resolution:Tuple[int, int] ,monitor=0, stretch=False,
+    def init(cls, title: str, resolution:Tuple[int, int], monitor=0, stretch=False,
              dynamic_zoom=False,fullscreen=False, resizable=False, vsync=False) -> None:
         """
         Initializes the main display window used by all scenes.
@@ -30,7 +30,7 @@ class Display:
             vsync (bool): Enables vertical sync. Defaults to False.
         """
         cls._title = title
-        cls._res = tuple(resolution) # make sure it's tuple, no need to raise an error
+        cls._res = tuple(resolution)  # make sure it's tuple, no need to raise an error
         cls._width, cls._height = resolution
 
         cls._vsync = vsync
@@ -152,7 +152,7 @@ class Display:
     def toggle_fullscreen(cls) -> None:
         """Toggle fullscreen mode on or off."""
         cls._fullscreen = not cls._fullscreen
-        cls.set_icon(cls._icon) # re-set icon for the new display mode
+        cls.set_icon(cls._icon)  # re-set icon for the new display mode
         # hack to keep the old resolution after toggling fullscreen
         if cls._fullscreen:
             cls._last_res = cls._new_res if cls._new_res is not None else cls._res
@@ -186,7 +186,6 @@ class Display:
             Txt: A text object with a `.draw()` method.
         """
         Txt.draw(cls.surface, scale=1)
-
 
     @classmethod
     def draw_image(cls, Image) -> None:

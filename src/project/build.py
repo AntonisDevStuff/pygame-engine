@@ -18,14 +18,14 @@ def local_build(args):
         return
 
     project_path = get_path(name)
-    main_script = os.path.join(project_path, 'main.py')
+    main_script = os.path.join(project_path, "main.py")
 
-    print ("Build metadata: ")
+    print("Build metadata: ")
     metadata = info(args)
     app_name = metadata["name"]
     app_version = metadata["version"]
 
-    build_dir = os.path.abspath('build')  # everything goes here
+    build_dir = os.path.abspath("build")  # everything goes here
 
     # remove previous build
     if os.path.exists(build_dir):
@@ -39,7 +39,12 @@ def local_build(args):
     os.makedirs(build_dir, exist_ok=True)
 
     includes = [
-        dep.split('==')[0].split('>=')[0].split('>')[0].split('<')[0].split('[')[0].replace('-', '_')
+        dep.split("==")[0]
+        .split(">=")[0]
+        .split(">")[0]
+        .split("<")[0]
+        .split("[")[0]
+        .replace("-", "_")
         for dep in requires("pyxora")
     ]
 
@@ -52,9 +57,9 @@ def local_build(args):
     includes.remove("pygame_ce")
 
     # these are not needed in the final build executable
-    includes.remove("pygbag")    # web builds
-    includes.remove("cx_Freeze") # local builds
-    includes.remove("pdoc")      # docs generator
+    includes.remove("pygbag")  # web builds
+    includes.remove("cx_Freeze")  # local builds
+    includes.remove("pdoc")  # docs generator
 
     # exec type base in platform
     if sys.platform == "win32":
@@ -65,7 +70,8 @@ def local_build(args):
         target_name = app_name
 
     # cx_Freeze setup script
-    setup_code = textwrap.dedent(f"""\
+    setup_code = textwrap.dedent(
+        f"""\
         from cx_Freeze import setup, Executable
 
         includes = {includes!r}
@@ -83,20 +89,23 @@ def local_build(args):
                 }}
             }}
         )
-    """)
+    """
+    )
 
     # create temp script file for the cx_freeze
     with tempfile.TemporaryDirectory() as temp_dir:
-        setup_script_path = os.path.join(temp_dir, 'setup_cxfreeze.py')
+        setup_script_path = os.path.join(temp_dir, "setup_cxfreeze.py")
         with open(setup_script_path, "w") as f:
             f.write(setup_code)
 
         print("Running cx_Freeze...")
         try:
-            subprocess.run([sys.executable, setup_script_path, "build"],
-                check=True, cwd=temp_dir,
-                stdout=subprocess.DEVNULL, # suppress output
-                stderr=subprocess.DEVNULL  # suppress errors
+            subprocess.run(
+                [sys.executable, setup_script_path, "build"],
+                check=True,
+                cwd=temp_dir,
+                stdout=subprocess.DEVNULL,  # suppress output
+                stderr=subprocess.DEVNULL,  # suppress errors
             )
         except subprocess.CalledProcessError as e:
             print(f"Error during cx_Freeze build: {e}")
@@ -106,7 +115,12 @@ def local_build(args):
     for item in os.listdir(project_path):
         src = os.path.join(project_path, item)
         dst = os.path.join(build_dir, item)
-        if item in ('build', '__pycache__','main.py','metadata.json'): # skip this folders/files
+        if item in (
+            "build",
+            "__pycache__",
+            "main.py",
+            "metadata.json",
+        ):  # skip this folders/files
             continue
 
         try:
@@ -125,7 +139,6 @@ def local_build(args):
     print(f"Build time: {x2 - x1:.2f} seconds")
 
 
-
 def web_build(args):
     x1 = time()
     name = args.name
@@ -134,7 +147,7 @@ def web_build(args):
         return
 
     project_path = get_path(name)
-    build_dir = os.path.abspath('build')
+    build_dir = os.path.abspath("build")
 
     print("Build metadata:")
     metadata = info(args)
@@ -153,19 +166,21 @@ def web_build(args):
     os.makedirs(build_dir, exist_ok=True)
 
     try:
-        print(f"Running pygbag ...")
+        print("Running pygbag ...")
         subprocess.run(
-            [sys.executable, "-m", "pygbag","--archive", "main.py"],
+            [sys.executable, "-m", "pygbag", "--archive", "main.py"],
             check=True,
             cwd=project_path,
-            stdout=subprocess.DEVNULL, # suppress output
-            stderr=subprocess.DEVNULL  # suppress errors
+            stdout=subprocess.DEVNULL,  # suppress output
+            stderr=subprocess.DEVNULL,  # suppress errors
         )
     except subprocess.CalledProcessError as e:
         print(f"pygbag build failed with exit code {e.returncode}")
         return
     except FileNotFoundError:
-        print("pygbag command not found. Please ensure pygbag is installed and in your PATH.")
+        print(
+            "pygbag command not found. Please ensure pygbag is installed and in your PATH."
+        )
         return
 
     # move build from the project to current directory
@@ -176,16 +191,19 @@ def web_build(args):
     except Exception:
         print(f"Error moving {pygbag_output_dir} to {build_dir}")
         try:
-            shutil.rmtree(pygbag_output_dir) # try to remove the tmp pygbag build files if move fails
+            shutil.rmtree(
+                pygbag_output_dir
+            )  # try to remove the tmp pygbag build files if move fails
         except Exception:
-            print(f"Error deleting pygbag tmp files")
+            print("Error deleting pygbag tmp files")
         return
 
     print(f"Web build completed successfully. Files are in: {build_dir}")
     x2 = time()
     print(f"Build time: {x2 - x1:.2f} seconds")
 
-def build(args):
+
+def build_project(args):
     """Build a project"""
     if args.web:
         web_build(args)
