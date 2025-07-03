@@ -1,4 +1,4 @@
-# Copyright (C) 2025 ToniDevStuff
+# Copyright (C) 2025 AntonisDevStuff
 # This project is licensed under the MIT License.
 # See LICENSE.txt for full details.
 
@@ -9,7 +9,7 @@ from importlib.metadata import version as _version
 __version__ = _version("pyxora")
 
 __project__ = "pyxora"
-__author__ = "ToniDevStuff"
+__author__ = "AntonisDevStuff"
 
 __docformat__ = "google"
 __license__ = "MIT"
